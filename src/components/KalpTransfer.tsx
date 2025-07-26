@@ -41,7 +41,7 @@ export function KalpTransfer() {
       'SplitChain',
       window.location.origin,
       'http://localhost:3000/favicon.ico',
-      'koot',
+      'b3237264809cce5149d844f73831974783fd264a',
       'GetBalance',
       ['walletid250'],
       'kalptantra',
