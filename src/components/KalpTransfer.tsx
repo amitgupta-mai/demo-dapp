@@ -43,7 +43,7 @@ export function KalpTransfer() {
       'http://localhost:3000/favicon.ico',
       'b3237264809cce5149d844f73831974783fd264a',
       'GetBalance',
-      ['walletid250'],
+      ['walletid251'],
       'kalptantra',
       (res: any) => {
         console.log('re -----> ', res);
