@@ -1,6 +1,7 @@
 // import { useState } from 'react';
-import { Send } from 'lucide-react';
+import { Send, Eye } from 'lucide-react';
 const writeKalpTransaction: any = (window as any)?.writeTransaction;
+const readKalpTransaction: any = (window as any)?.readTransaction;
 // import { ethers } from 'ethers';
 
 // enum TransactionType {
@@ -51,15 +52,86 @@ export function KalpTransfer() {
     );
   };
 
+  const handleReadBalanceBtn = async () => {
+    const params = {
+      token: localStorage.getItem('dappToken'),
+      network: 'SplitChain',
+      origin: window.location.origin,
+      icon: 'http://localhost:3000/favicon.ico',
+      chaincode: 'b3237264809cce5149d844f73831974783fd264a',
+      networkName: 'kalptantra',
+    };
+    const walletId = 'walletid251';
+
+    const res = await readKalpTransaction(
+      params.token,
+      params.network,
+      params.origin,
+      params.icon,
+      params.chaincode,
+      'GetBalance',
+      [walletId],
+      params.networkName,
+      (res: any) => {
+        console.log('Get balance result:', res);
+      }
+    );
+    console.log('Get balance result:', res);
+  };
+
+  const handleDummyReadBalanceBtn = async () => {
+    const params = {
+      token: localStorage.getItem('dappToken'),
+      network: 'SplitChain',
+      origin: window.location.origin,
+      icon: 'http://localhost:3000/favicon.ico',
+      chaincode: 'b3237264809cce5149d844f73831974783fd264a',
+      networkName: 'kalptantra',
+    };
+    const walletId = 'walletid251';
+
+    const res = await readKalpTransaction(
+      params.token,
+      params.network,
+      params.origin,
+      params.icon,
+      params.chaincode,
+      'GetBalanceDummy',
+      [walletId],
+      params.networkName,
+      (res: any) => {
+        console.log('Get balance result:', res);
+      }
+    );
+    console.log('Get balance result:', res);
+  };
+
   return (
     <div className='bg-white rounded-xl shadow-lg p-6'>
-      <button
-        className='w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 font-medium'
-        onClick={handleClaimBtn}
-      >
-        <Send size={20} />
-        Get Koot Balance
-      </button>
+      <div className='space-y-4'>
+        <button
+          className='w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 font-medium'
+          onClick={handleClaimBtn}
+        >
+          <Send size={20} />
+          Get Koot Balance (Write)
+        </button>
+
+        <button
+          className='w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2 font-medium'
+          onClick={handleReadBalanceBtn}
+        >
+          <Eye size={20} />
+          Get Balance (Read)
+        </button>
+        <button
+          className='w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2 font-medium'
+          onClick={handleDummyReadBalanceBtn}
+        >
+          <Eye size={20} />
+          Get Balance (Dummy)
+        </button>
+      </div>
       {/* <h2 className='text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2'>
         <Send size={24} className='text-indigo-600' />
         Transfer Balance
